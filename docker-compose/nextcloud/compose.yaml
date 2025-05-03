@@ -7,7 +7,7 @@ services:
     image: docker.io/library/nextcloud:31.0.4-apache
     container_name: nextcloud-app
     ports:
-      - 80:80
+      - 2280:80
     volumes:
       - nextcloud-data:/var/www/html
     environment:
