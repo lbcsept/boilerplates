@@ -1,0 +1,78 @@
+{
+  "id": 1,
+  "created_on": "2025-05-01 12:23:40",
+  "modified_on": "2025-05-03 22:35:28",
+  "owner_user_id": 1,
+  "domain_names": [
+    "h2d2.freeboxos.fr"
+  ],
+  "forward_host": "192.168.1.58",
+  "forward_port": 443,
+  "access_list_id": 0,
+  "certificate_id": "1",
+  "ssl_forced": true,
+  "caching_enabled": false,
+  "block_exploits": true,
+  "advanced_config": "",
+  "meta": {
+    "letsencrypt_agree": false,
+    "dns_challenge": false
+  },
+  "allow_websocket_upgrade": false,
+  "http2_support": true,
+  "forward_scheme": "https",
+  "enabled": true,
+  "locations": [
+    {
+      "path": "/lab_temp/",
+      "advanced_config": "",
+      "forward_scheme": "http",
+      "forward_host": "192.168.1.58/lab_temp",
+      "forward_port": 80
+    },
+    {
+      "path": "/dsm/",
+      "advanced_config": "",
+      "forward_scheme": "http",
+      "forward_host": "192.168.1.110",
+      "forward_port": 80
+    },
+    {
+      "path": "/nxt/",
+      "advanced_config": "",
+      "forward_scheme": "http",
+      "forward_host": "192.168.1.50",
+      "forward_port": 2280
+    },
+    {
+      "path": "/labroot/",
+      "advanced_config": "location /labroot/ {\n    proxy_pass http://192.168.1.58/;\n}\n",
+      "forward_scheme": "http",
+      "forward_host": "192.168.1.58/labroot/",
+      "forward_port": 80
+    },
+    {
+      "path": "/veranda/",
+      "advanced_config": "location /labroot/ {\n    proxy_pass http://192.168.1.58/lab_temp;\n}\n",
+      "forward_scheme": "http",
+      "forward_host": "192.168.1.58/lab_temp/",
+      "forward_port": 80
+    },
+    {
+      "path": "/",
+      "advanced_config": "location / {\n    proxy_pass http://192.168.1.58/;\n}",
+      "forward_scheme": "http",
+      "forward_host": "192.168.1.58/",
+      "forward_port": 80
+    },
+    {
+      "path": "/lab_env_db",
+      "advanced_config": "location /lab_env_db {\n    proxy_pass http://192.168.1.58/lab_env_db;\n}",
+      "forward_scheme": "http",
+      "forward_host": "192.168.1.58/lab_env_db",
+      "forward_port": 80
+    }
+  ],
+  "hsts_enabled": true,
+  "hsts_subdomains": false
+}
