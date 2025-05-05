@@ -2,7 +2,7 @@ FROM jc21/nginx-proxy-manager:latest
 
 # Install dependencies
 USER root
-RUN apt  apt update && \
+RUN apt update && \
     apt install --no-cache nginx-plus-module-subs-filter
 
 # Verify modules are loaded
