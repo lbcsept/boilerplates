@@ -2,8 +2,8 @@ FROM jc21/nginx-proxy-manager:latest
 
 # Install dependencies
 USER root
-RUN apk update && \
-    apk add --no-cache nginx-mod-http-sub
+RUN apt  apt update && \
+    apt install --no-cache nginx-plus-module-subs-filter
 
 # Verify modules are loaded
 RUN nginx -V 2>&1 | grep -- '--with-http_sub_module'
