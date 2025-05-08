@@ -17,11 +17,12 @@ services:
       - "53:53/tcp" # DNS (TCP)
       - "53:53/udp" # DNS (UDP)
       - "7300:80/tcp" # Web UI HTTP
+      - "8443:443/tcp" # Web UI HTTPS
 
     # Environment variables
     environment:
-      TZ: "UTC" # Time Zone; Update this to your time zone
-      WEBPASSWORD: "password" # Admin password for web UI; Change this to your desired admin password
+      - TTZ=Europe/Berlin # Time Zone; Update this to your time zone
+      - WEBPASSWORD-"password" # Admin password for web UI; Change this to your desired admin password
 
     # Mount volumes for persistent data
     volumes:
