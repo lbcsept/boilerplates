@@ -1,4 +1,6 @@
 version: "3"
+# source https://www.antoineguilbert.fr/docker-creer-container-nordvpn/
+
 services:
   nordvpn:
     image: ghcr.io/bubuntux/nordvpn
@@ -12,8 +14,15 @@ services:
       - CONNECT=France
       - TECHNOLOGY=NordLynx
       - NETWORK=192.168.1.0/24
-    ports:
-      #Torrent
-     - 5050:5050 #Ceci est un exemple
+    # ports:
+    #   #Torrent
+    #  - 5050:5050 #Ceci est un exemple
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=1
+
+    networks:
+      - torrnet
+
+# networks:
+#   torrnet:
+#     external: true
