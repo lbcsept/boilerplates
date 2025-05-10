@@ -1,3 +1,4 @@
+# based on https://github.com/bubuntux/nordlynx?tab=readme-ov-file
 networks:
     vpn_network:
 
@@ -12,10 +13,11 @@ services:
       
     environment:
       - PRIVATE_KEY=${NORDLYNX_TK}
-      - NETWORK=${WIREGARD_IP}
+      - NETWORK=192.168.0.1/24
+      - CONNECT=Italy
 
     ports:
-      - 21080:8080 # qbittorent webUI
+      - 21080:8080 # qbittorent webui
       - 6881:6881 # qbittorrent torrent port
       # - 9117:9117 #jackett
       - 8989:8989 #sonarr
