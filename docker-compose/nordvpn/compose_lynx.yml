@@ -1,39 +1,42 @@
 networks:
     vpn_network:
-  # source : https://www.reddit.com/r/docker/comments/rew3ru/nordvpn_portainer_container/
-  services:
+
+services:
   
-    vpn:
-      image: ghcr.io/bubuntux/nordlynx
-      container_name: NordLynxVPN
-      cap_add:
-        - NET_ADMIN
-        # - NET_RAW
-      environment:
-        - PRIVATE_KEY=${NORDLYNX_TK}
-      ports:
-        # - 22280:8080 #qbittorent
-        # - 9117:9117 #jackett
-        - 8989:8989 #sonarr
-        # - 7878:7878 #radarr
-        # - 8686:8686 #lidarr
-        # - 9696:9696 #prowlarr
-      networks:
-        - vpn_network
-  
-    sonarr:
-      image: lscr.io/linuxserver/sonarr
-      container_name: sonarr
-      environment:
-        - PUID=1000
-        - PGID=1000
-        - TZ=Europe/Berlin
-      volumes:
-        - /../config:/config
-        - /../Media/TV:/tv
-        - /../torrents:/downloads
-      restart: unless-stopped
-      network_mode: service:vpn
-      depends_on:
-        - vpn
+  vpn:
+    image: ghcr.io/bubuntux/nordlynx
+    container_name: NordLynxVPN
+    cap_add:
+      - NET_ADMIN
+      # - NET_RAW
+      
+    environment:
+      - PRIVATE_KEY=${NORDLYNX_TK}
+      - NETWORK=${WIREGARD_IP}
+
+    ports:
+      # - 22280:8080 #qbittorent
+      # - 9117:9117 #jackett
+      - 8989:8989 #sonarr
+      # - 7878:7878 #radarr
+      # - 8686:8686 #lidarr
+      # - 9696:9696 #prowlarr
+    networks:
+      - vpn_network
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - /../config:/config
+      - /../Media/TV:/tv
+      - /../torrents:/downloads
+    restart: unless-stopped
+    network_mode: service:vpn
+    depends_on:
+      - vpn
 
