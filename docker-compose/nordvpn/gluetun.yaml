@@ -69,7 +69,7 @@ services:
 # on unhealthy status. labels allows deunhealth to monitor.
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
-    container_name: qbittorrent
+    container_name: qbittorrent_cnt
     restart: unless-stopped
     labels:
       - deunhealth.restart.on.unhealthy=true
