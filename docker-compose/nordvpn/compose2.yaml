@@ -8,16 +8,17 @@ services:
     container_name: NordVPN
     cap_add:
       - NET_ADMIN
+      - NET_RAW
     environment:
       - USER=${NORDVPN_USER}
-      - PASS=${NORDVPN_PASS}"
+      - PASS=${NORDVPN_PASS}
       - CONNECT=France
       - TECHNOLOGY=NordLynx
       - NETWORK=192.168.1.0/24
     ports:
-      - 8080:8080 #qbittorent
+      # - 8080:8080 #qbittorent
       # - 9117:9117 #jackett
-      # - 8989:8989 #sonarr
+      - 8989:8989 #sonarr
       # - 7878:7878 #radarr
       # - 8686:8686 #lidarr
       # - 9696:9696 #prowlarr
