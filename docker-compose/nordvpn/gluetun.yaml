@@ -2,6 +2,7 @@
 # - https://github.com/TechHutTV/homelab/blob/main/media/arr-compose.yaml
 # - https://www.youtube.com/watch?v=_tz2wUFT8VQ
 # - https://techhut.tv/must-have-home-server-services-2025/
+# https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/nordvpn.md#obtain-your-wireguard-private-key
 # Compose file for the *arr stack. Configuration files are stored 
 # in a docker folder mounted in root. Change to bind mounts if needed.
 # All containers are ran with user and group ids of the main user and 
@@ -33,15 +34,15 @@ services:
     volumes:
       - /docker/gluetun:/gluetun
     environment:
-      - VPN_SERVICE_PROVIDER=airvpn
+      - VPN_SERVICE_PROVIDER=nordvpn
       - VPN_TYPE=wireguard
-      - FIREWALL_VPN_INPUT_PORTS=port
+      # - FIREWALL_VPN_INPUT_PORTS=port
     # - FIREWALL_OUTBOUND_SUBNETS=192.168.0.0/24 # add if prowlarr wont connect to other arr apps, change to your specific subnet
-      - WIREGUARD_PRIVATE_KEY=key
-      - WIREGUARD_PRESHARED_KEY=key
-      - WIREGUARD_ADDRESSES=ip
-      - SERVER_COUNTRIES=country
-      - SERVER_CITIES=city
+      - WIREGUARD_PRIVATE_KEY=${NORDLYNX_TK}
+      # - WIREGUARD_PRESHARED_KEY=key
+      # - WIREGUARD_ADDRESSES=ip
+      - SERVER_COUNTRIES=UK,ES
+      # - SERVER_CITIES=city
       - HEALTH_VPN_DURATION_INITIAL=120s
     healthcheck:
       test: ping -c 1 www.google.com || exit 1
@@ -91,110 +92,110 @@ services:
         start_period: 20s
         timeout: 10s
 
-  nzbget:
-    image: lscr.io/linuxserver/nzbget:latest
-    container_name: nzbget
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-      - NZBGET_USER=user
-      - NZBGET_PASS=password
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/nzbget:/config
-      - /data:/data
-    depends_on:
-      - gluetun
-    restart: unless-stopped
-    network_mode: service:gluetun
+  # nzbget:
+  #   image: lscr.io/linuxserver/nzbget:latest
+  #   container_name: nzbget
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Los_Angeles
+  #     - NZBGET_USER=user
+  #     - NZBGET_PASS=password
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /docker/nzbget:/config
+  #     - /data:/data
+  #   depends_on:
+  #     - gluetun
+  #   restart: unless-stopped
+  #   network_mode: service:gluetun
 
-  prowlarr:
-    image: lscr.io/linuxserver/prowlarr:latest
-    container_name: prowlarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/prowlarr:/config
-    restart: unless-stopped
-    depends_on:
-      - gluetun
-    network_mode: service:gluetun
+  # prowlarr:
+  #   image: lscr.io/linuxserver/prowlarr:latest
+  #   container_name: prowlarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Los_Angeles
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /docker/prowlarr:/config
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - gluetun
+  #   network_mode: service:gluetun
 
-  sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
-    container_name: sonarr
-    restart: unless-stopped
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/sonarr:/config
-      - /data:/data
-    ports:
-      - 8989:8989
-    networks:
-      servarrnetwork:
-        ipv4_address: 172.18.0.3
+  # sonarr:
+  #   image: lscr.io/linuxserver/sonarr:latest
+  #   container_name: sonarr
+  #   restart: unless-stopped
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Los_Angeles
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /docker/sonarr:/config
+  #     - /data:/data
+  #   ports:
+  #     - 8989:8989
+  #   networks:
+  #     servarrnetwork:
+  #       ipv4_address: 172.18.0.3
 
-  radarr:
-    image: lscr.io/linuxserver/radarr:latest
-    container_name: radarr
-    restart: unless-stopped
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/radarr:/config
-      - /data:/data
-    ports:
-      - 7878:7878
-    networks:
-      servarrnetwork:
-        ipv4_address: 172.18.0.4
+  # radarr:
+  #   image: lscr.io/linuxserver/radarr:latest
+  #   container_name: radarr
+  #   restart: unless-stopped
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Los_Angeles
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /docker/radarr:/config
+  #     - /data:/data
+  #   ports:
+  #     - 7878:7878
+  #   networks:
+  #     servarrnetwork:
+  #       ipv4_address: 172.18.0.4
 
-  lidarr:
-    container_name: lidarr
-    image: lscr.io/linuxserver/lidarr:latest
-    restart: unless-stopped
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/lidarr:/config
-      - /data:/data
-    environment:
-     - PUID=1000
-     - PGID=1000
-     - TZ=America/Los_Angeles
-    ports:
-      - 8686:8686
-    networks:
-      servarrnetwork:
-        ipv4_address: 172.18.0.5
+  # lidarr:
+  #   container_name: lidarr
+  #   image: lscr.io/linuxserver/lidarr:latest
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /docker/lidarr:/config
+  #     - /data:/data
+  #   environment:
+  #    - PUID=1000
+  #    - PGID=1000
+  #    - TZ=America/Los_Angeles
+  #   ports:
+  #     - 8686:8686
+  #   networks:
+  #     servarrnetwork:
+  #       ipv4_address: 172.18.0.5
 
-  bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
-    container_name: bazarr
-    restart: unless-stopped
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/bazarr:/config
-      - /data:/data
-    ports:
-      - 6767:6767
-    networks:
-      servarrnetwork:
-        ipv4_address: 172.18.0.6
+  # bazarr:
+  #   image: lscr.io/linuxserver/bazarr:latest
+  #   container_name: bazarr
+  #   restart: unless-stopped
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Los_Angeles
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /docker/bazarr:/config
+  #     - /data:/data
+  #   ports:
+  #     - 6767:6767
+  #   networks:
+  #     servarrnetwork:
+  #       ipv4_address: 172.18.0.6
 
 # Newer additions to this stack feel free to remove if unwanted.
 
@@ -202,36 +203,36 @@ services:
 # Default login is admin/admin. Change password in Settings > User Managment.
 # Permissions set to my dault user 1000:1000 as that's the user that owns my data directory.
 
-  filebrowser:
-    image: filebrowser/filebrowser:s6
-    container_name: filebrowser
-    volumes:
-      - /data:/srv # Directory you want exposed to filebrowser.
-      - /docker/filebrowser/data:/data
-      - /docker/filebrowser/config:/config
-    environment:
-      - PUID=1000
-      - PGID=1000
-    ports:
-      - 80:80
-    networks:
-      servarrnetwork:
-        ipv4_address: 172.18.0.7
-    restart: unless-stopped
+#   filebrowser:
+#     image: filebrowser/filebrowser:s6
+#     container_name: filebrowser
+#     volumes:
+#       - /data:/srv # Directory you want exposed to filebrowser.
+#       - /docker/filebrowser/data:/data
+#       - /docker/filebrowser/config:/config
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#     ports:
+#       - 80:80
+#     networks:
+#       servarrnetwork:
+#         ipv4_address: 172.18.0.7
+#     restart: unless-stopped
 
-# Youtube downloading and subscription service. Information not yet added to readme.md
-  ytdl-sub:
-    image: ghcr.io/jmbannon/ytdl-sub:latest
-    container_name: ytdl-sub
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-      - DOCKER_MODS=linuxserver/mods:universal-cron
-    volumes:
-      - /docker/ytdl-sub/config:/config
-      - /data/youtube:/youtube
-    networks:
-      servarrnetwork:
-        ipv4_address: 172.18.0.8
-    restart: unless-stopped
+# # Youtube downloading and subscription service. Information not yet added to readme.md
+#   ytdl-sub:
+#     image: ghcr.io/jmbannon/ytdl-sub:latest
+#     container_name: ytdl-sub
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#       - TZ=America/Los_Angeles
+#       - DOCKER_MODS=linuxserver/mods:universal-cron
+#     volumes:
+#       - /docker/ytdl-sub/config:/config
+#       - /data/youtube:/youtube
+#     networks:
+#       servarrnetwork:
+#         ipv4_address: 172.18.0.8
+#     restart: unless-stopped
