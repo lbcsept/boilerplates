@@ -29,6 +29,7 @@ services:
     ports:
       - 8080:8080 # qbittorrent web interface
       - 6881:6881 # qbittorrent torrent port
+      - 6881:6881/udp
       - 6789:6789 # nzbget
       - 9696:9696 # prowlarr
     volumes:
@@ -110,92 +111,92 @@ services:
   #   restart: unless-stopped
   #   network_mode: service:gluetun
 
-  # prowlarr:
-  #   image: lscr.io/linuxserver/prowlarr:latest
-  #   container_name: prowlarr
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=America/Los_Angeles
-  #   volumes:
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /docker/prowlarr:/config
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - gluetun
-  #   network_mode: service:gluetun
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/prowlarr:/config
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+    network_mode: service:gluetun
 
-  # sonarr:
-  #   image: lscr.io/linuxserver/sonarr:latest
-  #   container_name: sonarr
-  #   restart: unless-stopped
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=America/Los_Angeles
-  #   volumes:
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /docker/sonarr:/config
-  #     - /data:/data
-  #   ports:
-  #     - 8989:8989
-  #   networks:
-  #     servarrnetwork:
-  #       ipv4_address: 172.26.0.3
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/sonarr:/config
+      - /data:/data
+    ports:
+      - 8989:8989
+    networks:
+      servarrnetwork:
+        ipv4_address: 172.26.0.3
 
-  # radarr:
-  #   image: lscr.io/linuxserver/radarr:latest
-  #   container_name: radarr
-  #   restart: unless-stopped
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=America/Los_Angeles
-  #   volumes:
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /docker/radarr:/config
-  #     - /data:/data
-  #   ports:
-  #     - 7878:7878
-  #   networks:
-  #     servarrnetwork:
-  #       ipv4_address: 172.26.0.4
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/radarr:/config
+      - /data:/data
+    ports:
+      - 7878:7878
+    networks:
+      servarrnetwork:
+        ipv4_address: 172.26.0.4
 
-  # lidarr:
-  #   container_name: lidarr
-  #   image: lscr.io/linuxserver/lidarr:latest
-  #   restart: unless-stopped
-  #   volumes:
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /docker/lidarr:/config
-  #     - /data:/data
-  #   environment:
-  #    - PUID=1000
-  #    - PGID=1000
-  #    - TZ=America/Los_Angeles
-  #   ports:
-  #     - 8686:8686
-  #   networks:
-  #     servarrnetwork:
-  #       ipv4_address: 172.26.0.5
+  lidarr:
+    container_name: lidarr
+    image: lscr.io/linuxserver/lidarr:latest
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/lidarr:/config
+      - /data:/data
+    environment:
+     - PUID=1000
+     - PGID=1000
+     - TZ=America/Los_Angeles
+    ports:
+      - 8686:8686
+    networks:
+      servarrnetwork:
+        ipv4_address: 172.26.0.5
 
-  # bazarr:
-  #   image: lscr.io/linuxserver/bazarr:latest
-  #   container_name: bazarr
-  #   restart: unless-stopped
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=America/Los_Angeles
-  #   volumes:
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /docker/bazarr:/config
-  #     - /data:/data
-  #   ports:
-  #     - 6767:6767
-  #   networks:
-  #     servarrnetwork:
-  #       ipv4_address: 172.26.0.6
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/bazarr:/config
+      - /data:/data
+    ports:
+      - 6767:6767
+    networks:
+      servarrnetwork:
+        ipv4_address: 172.26.0.6
 
 # Newer additions to this stack feel free to remove if unwanted.
 
@@ -220,19 +221,19 @@ services:
 #         ipv4_address: 172.26.0.7
 #     restart: unless-stopped
 
-# # Youtube downloading and subscription service. Information not yet added to readme.md
-#   ytdl-sub:
-#     image: ghcr.io/jmbannon/ytdl-sub:latest
-#     container_name: ytdl-sub
-#     environment:
-#       - PUID=1000
-#       - PGID=1000
-#       - TZ=America/Los_Angeles
-#       - DOCKER_MODS=linuxserver/mods:universal-cron
-#     volumes:
-#       - /docker/ytdl-sub/config:/config
-#       - /data/youtube:/youtube
-#     networks:
-#       servarrnetwork:
-#         ipv4_address: 172.26.0.8
-#     restart: unless-stopped
+# Youtube downloading and subscription service. Information not yet added to readme.md
+  ytdl-sub:
+    image: ghcr.io/jmbannon/ytdl-sub:latest
+    container_name: ytdl-sub
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+      - DOCKER_MODS=linuxserver/mods:universal-cron
+    volumes:
+      - /docker/ytdl-sub/config:/config
+      - /data/youtube:/youtube
+    networks:
+      servarrnetwork:
+        ipv4_address: 172.26.0.8
+    restart: unless-stopped
