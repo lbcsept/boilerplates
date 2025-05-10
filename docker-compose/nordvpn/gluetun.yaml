@@ -27,8 +27,8 @@ services:
       servarrnetwork:
         ipv4_address: 172.26.0.2
     ports:
-      - 8080:8080 # qbittorrent web interface
-      - 6881:6881 # qbittorrent torrent port
+      - 2680:8080 # qbittorrent web interface
+      - 2681:6881 # qbittorrent torrent port
       - 6789:6789 # nzbget
       - 9696:9696 # prowlarr
     volumes:
@@ -77,10 +77,10 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
-      - WEBUI_PORT=8080
-      - TORRENTING_PORT=6881
+      - WEBUI_PORT=2680
+      - TORRENTING_PORT=2681
     volumes:
-      - /docker/qbittorrent:/config
+      - /docker/qbittorrent_cnt:/config
       - /data:/data
     depends_on:
       - gluetun
