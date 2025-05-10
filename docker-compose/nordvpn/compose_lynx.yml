@@ -1,4 +1,5 @@
 # based on https://github.com/bubuntux/nordlynx?tab=readme-ov-file
+# modified based on https://github.com/bubuntux/nordvpn/issues/367#issuecomment-1315533620
 networks:
     vpn_network:
 
@@ -13,12 +14,15 @@ services:
       
     environment:
       - PRIVATE_KEY=${NORDLYNX_TK}
-      - NETWORK=192.168.1.0/24
+      # - NETWORK=192.168.1.0/24
+      - NET_LOCAL=192.168.1.0/24
+      - ALLOWED_IPS=0.0.0.0/0
       - COUNTRY_CODE=IT
 
     ports:
       - 8080:8080 # qbittorent webui
       - 6881:6881 # qbittorrent torrent port
+      - 6881:6881/udp
       # - 9117:9117 #jackett
       - 8989:8989 #sonarr
       # - 7878:7878 #radarr
