@@ -223,7 +223,7 @@ services:
       - PUID=1000
       - PGID=1000
     ports:
-      - 80:80
+      - 9480:80
     networks:
       servarrnetwork:
         ipv4_address: 172.26.0.7
