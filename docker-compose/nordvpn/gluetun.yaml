@@ -32,12 +32,14 @@ services:
       - 6881:6881/udp
       - 6789:6789 # nzbget
       - 9696:9696 # prowlarr
+      - 8888:8888/tcp # http proxy
     volumes:
       - /docker/gluetun:/gluetun
     environment:
       - BLOCK_MALICIOUS=off  # avoid overwhelming RAM
       - VPN_SERVICE_PROVIDER=nordvpn
       - VPN_TYPE=wireguard
+      - HTTPPROXY=on
       # - FIREWALL_VPN_INPUT_PORTS=port
     # - FIREWALL_OUTBOUND_SUBNETS=192.168.0.0/24 # add if prowlarr wont connect to other arr apps, change to your specific subnet
       - WIREGUARD_PRIVATE_KEY=${NORDLYNX_TK}
@@ -239,3 +241,24 @@ services:
       servarrnetwork:
         ipv4_address: 172.26.0.8
     restart: unless-stopped
+
+  firefox:
+      image: lscr.io/linuxserver/firefox:latest
+      # hostname: firefox                        # won't work when you do network_mode
+      container_name: firefox
+      restart: unless-stopped
+      depends_on:
+          - vpn
+      network_mode: service:vpn
+      # ports:                                   # won't work; you need to do this in the nordlynx VPN container 
+      #     - "3000:3000"                        # won't work; you need to do this in the nordlynx VPN container  
+      #     - "3001:3001"                        # won't work; you need to do this in the nordlynx VPN container
+      volumes:
+          - /docker/mozilla/config:/config
+      environment:
+          - PUID=1000
+          - PGID=1000
+          - TZ=America/New_York
+      security_opt:
+          - seccomp:unconfined
+      # shm_size: "1gb"
