@@ -198,7 +198,7 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /docker/readarr:/config
+      - /docker/mylar3:/config
       - /data:/data
     ports:
       - 8090:8090
