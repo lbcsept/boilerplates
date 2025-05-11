@@ -43,7 +43,8 @@ services:
       - WIREGUARD_PRIVATE_KEY=${NORDLYNX_TK}
       # - WIREGUARD_PRESHARED_KEY=key
       # - WIREGUARD_ADDRESSES=ip
-      - SERVER_COUNTRIES=Spain
+      - UPDATER_PERIOD=300s
+      - SERVER_COUNTRIES=Spain,France,Italy,Germany,Netherlands
       # - SERVER_CITIES=city
       - HEALTH_VPN_DURATION_INITIAL=120s
     healthcheck:
