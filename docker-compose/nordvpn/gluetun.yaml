@@ -171,7 +171,7 @@ services:
         ipv4_address: 172.26.0.4
 
   readarr:
-    image: lscr.io/linuxserver/readarr:latest
+    image: lscr.io/linuxserver/readarr:develop
     container_name: readarr
     restart: unless-stopped
     environment:
@@ -183,7 +183,7 @@ services:
       - /docker/readarr:/config
       - /data:/data
     ports:
-      - 7676:7676
+      - 8787:8787
     networks:
       servarrnetwork:
         ipv4_address: 172.26.0.9
