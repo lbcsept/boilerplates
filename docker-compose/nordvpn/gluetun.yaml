@@ -188,6 +188,24 @@ services:
       servarrnetwork:
         ipv4_address: 172.26.0.9
 
+  mylar3:
+    image: lscr.io/linuxserver/mylar3:latest
+    container_name: readarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/readarr:/config
+      - /data:/data
+    ports:
+      - 8090:8090
+    networks:
+      servarrnetwork:
+        ipv4_address: 172.26.0.10
+
   lidarr:
     container_name: lidarr
     image: lscr.io/linuxserver/lidarr:latest
