@@ -35,6 +35,7 @@ services:
     volumes:
       - /docker/gluetun:/gluetun
     environment:
+      - BLOCK_MALICIOUS=off  # avoid overwhelming RAM
       - VPN_SERVICE_PROVIDER=nordvpn
       - VPN_TYPE=wireguard
       # - FIREWALL_VPN_INPUT_PORTS=port
