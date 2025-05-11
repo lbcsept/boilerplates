@@ -170,6 +170,24 @@ services:
       servarrnetwork:
         ipv4_address: 172.26.0.4
 
+  readarr:
+    image: lscr.io/linuxserver/readarr:latest
+    container_name: readarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/readarr:/config
+      - /data:/data
+    ports:
+      - 7676:7676
+    networks:
+      servarrnetwork:
+        ipv4_address: 172.26.0.9
+
   lidarr:
     container_name: lidarr
     image: lscr.io/linuxserver/lidarr:latest
