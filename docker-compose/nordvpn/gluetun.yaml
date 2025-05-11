@@ -40,6 +40,7 @@ services:
       - VPN_SERVICE_PROVIDER=nordvpn
       - VPN_TYPE=wireguard
       - HTTPPROXY=on
+      - HTTPPROXY_LOG=on
       # - FIREWALL_VPN_INPUT_PORTS=port
     # - FIREWALL_OUTBOUND_SUBNETS=192.168.0.0/24 # add if prowlarr wont connect to other arr apps, change to your specific subnet
       - WIREGUARD_PRIVATE_KEY=${NORDLYNX_TK}
