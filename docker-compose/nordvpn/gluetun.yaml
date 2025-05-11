@@ -101,23 +101,23 @@ services:
         start_period: 20s
         timeout: 10s
 
-  # nzbget:
-  #   image: lscr.io/linuxserver/nzbget:latest
-  #   container_name: nzbget
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=America/Los_Angeles
-  #     - NZBGET_USER=user
-  #     - NZBGET_PASS=password
-  #   volumes:
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /docker/nzbget:/config
-  #     - /data:/data
-  #   depends_on:
-  #     - gluetun
-  #   restart: unless-stopped
-  #   network_mode: service:gluetun
+  nzbget:
+    image: lscr.io/linuxserver/nzbget:latest
+    container_name: nzbget
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+      - NZBGET_USER=${NZBGET_USER}
+      - NZBGET_PASS=${NZBGET_PASS}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/nzbget:/config
+      - /data:/data
+    depends_on:
+      - gluetun
+    restart: unless-stopped
+    network_mode: service:gluetun
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
