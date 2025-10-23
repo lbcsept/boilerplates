@@ -1,0 +1,40 @@
+
+# install docker
+# following https://techhut.tv/7-docker-basics-for-beginners/
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+#
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+# transcoding with intel card
+sudo usermod -aG render nikipol
+
+# install intel-gpu-tools
+sudo apt install intel-gpu-tools
+sudo intel_gpu_top  # crash if not done with sudo
+
+
+# Storage
+sudo mkdir -p /data/jetable
+sudo mkdir /docker
+sudo chown -R 1000:1000 /data/jetable
+sudo chown -R 1000:1000 /docker
+
+sudo apt install cifs-utils
+
+### /etc/.smbcredentials
+sudo su
+export COFFRE_USERNAME= ...
+export COFFRE_PASSWORD= ...
+export COFFRE_WORKGROUP=WORKGROUP
+
+
+echo username=$COFFRE_USERNAME > /etc/.smbcredentials
+echo password=$COFFRE_PASSWORD  >> /etc/.smbcredentials
+echo domain=$COFFRE_WORKGROUP >> /etc/.smbcredentials
+echo "//192.168.1.100/data/jetable /data/jetable cifs uid=1000,gid=1000,credentials=/etc/.smbcredentials,iocharset=utf8 0 0" >> /etc/fstab
+
+exit

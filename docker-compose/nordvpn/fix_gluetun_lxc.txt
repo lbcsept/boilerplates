@@ -1,0 +1,6 @@
+
+# from https://github.com/TechHutTV/homelab/tree/main/media#gluetun-proxmox-fix
+# VI /etc/pve/lxc/101.conf (or whatever your lxc ID is)
+lxc.cgroup2.devices.allow: c 10:200 rwm
+lxc.mount.entry: /dev/net dev/net none bind,create=dir
+lxc.mount.entrypr: /dev/net/tun dev/net/tun none bind,create=file
