@@ -1,7 +1,7 @@
 ---
 services:
   nginx:
-    image: docker.io/library/fabiocicerchia/nginx-lua:1.28.0-alpine3.22.2
+    image: fabiocicerchia/nginx-lua:1.28.0-alpine3.22.2
     container_name: nginx-lua
     ports:
       - 2280:80
