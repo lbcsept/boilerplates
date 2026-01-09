@@ -15,3 +15,4 @@ services:
       - BRAIN_MAC=${BRAIN_MAC}
       - BRAIN_USER=${BRAIN_USER}
       - BRAIN_PSW=${BRAIN_PSW}
+      - PYTHONPATH=/app
