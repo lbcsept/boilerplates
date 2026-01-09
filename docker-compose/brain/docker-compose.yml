@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  brainswich:
+    build: .
+    container_name: brainswich
+    ports:
+      - "4999:4999"
+    volumes:
+      - .:/app
+    restart: unless-stopped

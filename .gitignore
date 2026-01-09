@@ -6,3 +6,4 @@
 **/secret.*
 **/.env
 **/*.env
+**/*.cpython-39.pyc
