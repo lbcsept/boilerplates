@@ -3,7 +3,7 @@ version: '3.8'
 services:
   brainswich:
     build: .
-    container_name: brainswitch
+    # container_name: brainswitch
     ports:
       - "4999:4999"
     volumes:
