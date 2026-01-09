@@ -9,6 +9,8 @@ services:
     volumes:
       - .:/app
     restart: unless-stopped
-    env_file:
-      # - .env
-      - stack.env
+    environment:
+      - BRAIN_HOST=${BRAIN_HOST}
+      - BRAIN_MAC=${BRAIN_MAC}
+      - BRAIN_USER=${BRAIN_USER}
+      - BRAIN_PSW=${BRAIN_PSW}
