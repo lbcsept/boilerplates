@@ -5,7 +5,7 @@ services:
     build: .
     # container_name: brainswitch
     ports:
-      - "4999:4999"
+      - "${BRAIN_PORT}:4999"
     volumes:
       - .:/app
     restart: unless-stopped
