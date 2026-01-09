@@ -17,6 +17,7 @@ EXPOSE 4999
 
 # Run the Flask app
 # CMD ["gunicorn", "--bind", "0.0.0.0:4999", "--workers", "4", "--threads", "2", "src.api:app"]
-CMD ["gunicorn", "--bind", "0.0.0.0:4999", "api:app"]
+CMD ["PYTHONPATH=`pwd`/..", "gunicorn", "--bind", "0.0.0.0:4999", "src.api:app"]
+# CMD ["cd", "brain", "gunicorn", "--bind", "0.0.0.0:4999", "src.api:app"]
 # CMD ["gunicorn", "--bind", "0.0.0.0:4999", "app:src.api"]
 # CMD ["gunicorn", "--bind", "0.0.0.0:4999", "src.api:toto"]
