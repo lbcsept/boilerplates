@@ -7,7 +7,7 @@ services:
       - "${BRAIN_PORT}:4999"
     volumes:
       - .:/app
-      - ./src:/app/rc
+      - ./src:/app/src
     working_dir: /app
     environment:
       - BRAIN_HOST=${BRAIN_HOST}
