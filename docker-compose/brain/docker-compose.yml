@@ -10,4 +10,5 @@ services:
       - .:/app
     restart: unless-stopped
     env_file:
-      - .env
+      # - .env
+      - stack.env
