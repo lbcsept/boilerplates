@@ -3,16 +3,14 @@ version: '3.8'
 services:
   brainswich:
     build: .
-    container_name: brainswitch
     ports:
       - "${BRAIN_PORT}:4999"
     volumes:
       - .:/app
     working_dir: /app
-    restart: unless-stopped
     environment:
       - BRAIN_HOST=${BRAIN_HOST}
       - BRAIN_MAC=${BRAIN_MAC}
       - BRAIN_USER=${BRAIN_USER}
       - BRAIN_PSW=${BRAIN_PSW}
-      - PYTHONPATH=/app
+    restart: unless-stopped
