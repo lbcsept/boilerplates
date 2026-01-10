@@ -23,4 +23,4 @@ EXPOSE 4999
 
 # Run the Flask app
 # CMD ["gunicorn", "--bind", "0.0.0.0:4999", "api:app"]
-CMD ["ls", "/app"]
+CMD ["ls", "/app/src"]
