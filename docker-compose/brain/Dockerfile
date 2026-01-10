@@ -11,7 +11,11 @@ RUN apt-get update && apt-get install -y wakeonlan ethtool
 
 # Copy the Flask application
 COPY . .
-COPY ./src ./src
+COPY ./src/* /app/
+
+
+
+
 
 # Set PYTHONPATH to the current directory
 ENV PYTHONPATH=/app/
@@ -24,4 +28,4 @@ EXPOSE 4999
 
 # Run the Flask app
 # CMD ["gunicorn", "--bind", "0.0.0.0:4999", "api:app"]
-CMD ["ls", "/app/src"]
+CMD ["ls", "/app/"]
