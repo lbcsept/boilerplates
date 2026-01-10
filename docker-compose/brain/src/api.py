@@ -3,17 +3,6 @@ from .switch import on as switch_on, off as switch_off
 
 app = Flask(__name__)
 
-# @app.route('/on', methods=['POST'])
-# def on():    # Your Python logic here
-#     switch_on()
-#     return jsonify({"status": "brain turned on"})
-
-# @app.route('/on_struct', methods=['POST'])
-# def on_struct():
-#     # Your Python logic here
-#     switch_on_struct()
-#     return jsonify({"status": "brain turned on"})
-
 
 @app.route('/on', methods=['POST'])
 def on_test():
@@ -22,13 +11,11 @@ def on_test():
     switch_on()
     return jsonify({"status": "brain turned on"})
 
-
 @app.route('/off', methods=['POST'])
 def off():
     # Your Python logic here
     switch_off()
     return jsonify({"status": "switching off brain"})
-
 
 @app.route('/trigger', methods=['POST'])
 def trigger_code():
