@@ -5,9 +5,8 @@ services:
     build: .
     ports:
       - "${BRAIN_PORT}:4999"
-    volumes:
-      - .:/app
-      - ./src:/app/src
+    # volumes:
+    #   - ./src:/app/
     working_dir: /app
     environment:
       - BRAIN_HOST=${BRAIN_HOST}
