@@ -47,7 +47,7 @@ def off():
                                "message": f"Command failed with error: {error}"}
         else:
             return {"status": "success", 
-                               "message": f"Command succeeded: {output}"}
+                               "message": f"Command succeeded, brain will sleep, {output}"}
 
     except Exception as e:
         return {"status": "error", 
