@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from .switch import on as switch_on, off as switch_off
 import os
 import logging
@@ -17,17 +17,17 @@ def on():
     logging.info("Triggering on brain")
     logging.debug(f"BRAIN_MAC:  {os.environ.get('BRAIN_MAC')}")
     logging.debug(f"BRAIN_HOST: {os.environ.get('BRAIN_HOST')}")
-    return jsonify(switch_on())
+    return switch_on()
 
 @app.route('/off', methods=['POST'])
 def off():
     logging.info("Triggering off brain")
-    return jsonify(switch_off())
+    return switch_off()
 
-@app.route('/trigger', methods=['POST'])
-def trigger_code():
-    # Your Python logic here
-    return jsonify({"status": "success"})
+# @app.route('/trigger', methods=['POST'])
+# def trigger_code():
+#     # Your Python logic here
+#     return jsonify({"status": "success"})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
