@@ -18,7 +18,6 @@ def on():
     logging.debug(f"BRAIN_MAC:  {os.environ.get('BRAIN_MAC')}")
     logging.debug(f"BRAIN_HOST: {os.environ.get('BRAIN_HOST')}")
     return jsonify(switch_on())
-    # return jsonify({"status": "turning brain on"})
 
 @app.route('/off', methods=['POST'])
 def off():
