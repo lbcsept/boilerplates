@@ -2,7 +2,6 @@
 from dotenv import load_dotenv
 import os
 import subprocess
-import json
 import paramiko
 # import typer
 # app = typer.Typer()
@@ -15,14 +14,14 @@ def on():
         cmd = ["wakeonlan", "-i", os.getenv('BRAIN_HOST'), os.getenv('BRAIN_MAC')]
         result = subprocess.run(cmd, capture_output=True, text=True)
         if result.returncode == 0:
-            return json.dumps({"status": "success",
-                               "message": "Command succeeded, brain will wake up"})
+            return {"status": "success",
+                               "message": "Command succeeded, brain will wake up"}
         else:
-            return json.dumps({"status": "error",
-                               "message": f"Command failed with error: {result.stderr}"})
+            return {"status": "error",
+                               "message": f"Command failed with error: {result.stderr}"}
     except Exception as e:
-        return json.dumps({"status": "error",
-                           "message": f"An unexpected error occurred: {str(e)}"})
+        return {"status": "error",
+                           "message": f"An unexpected error occurred: {str(e)}"}
 
 
 
@@ -44,15 +43,15 @@ def off():
         error = stderr.read().decode()
 
         if error:
-            return json.dumps({"status": "error", 
-                               "message": f"Command failed with error: {error}"})
+            return {"status": "error", 
+                               "message": f"Command failed with error: {error}"}
         else:
-            return json.dumps({"status": "success", 
-                               "message": f"Command succeeded: {output}"})
+            return {"status": "success", 
+                               "message": f"Command succeeded: {output}"}
 
     except Exception as e:
-        return json.dumps({"status": "error", 
-                           "message": f"An unexpected error occurred: {str(e)}"})
+        return {"status": "error", 
+                           "message": f"An unexpected error occurred: {str(e)}"}
     finally:
         ssh.close()
 
