@@ -5,6 +5,8 @@ import os
 # app = typer.Typer()
 
 load_dotenv(override=True)
+# import logging
+# logging.basicConfig(level=logging.INFO)
 
 # @app.command(short_help="Turn brain on")
 # def on_old():
@@ -20,9 +22,7 @@ load_dotenv(override=True)
 def on():
     import subprocess
     cmd = ["wakeonlan", "-i", os.getenv('BRAIN_HOST'), os.getenv('BRAIN_MAC')]
-    # send_magic_packet("2C:F0:5D:9F:D6:58", interface="192.168.1.169")
-    # cmd = ["wakeonlan", "-i", "192.168.1.169", "2C:F0:5D:9F:D6:58"]
-    print("Running command: ", " ".join(cmd))
+    # logging("Running command: ", " ".join(cmd))
     result = subprocess.run(cmd, capture_output=True)
     if result.returncode == 0:
         return "Command succeeded, brain will wake up"

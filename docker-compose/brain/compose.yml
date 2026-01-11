@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  brainswich:
+  brainswitch:
     build: .
     ports:
       - "${BRAIN_PORT}:4999"
