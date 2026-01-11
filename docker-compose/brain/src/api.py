@@ -2,10 +2,14 @@ from flask import Flask, request, jsonify
 from .switch import on as switch_on, off as switch_off
 import os
 import logging
-logging.basicConfig(level=logging.INFO)
+
 
 app = Flask(__name__)
-
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
 
 @app.route('/on', methods=['POST'])
 def on():
