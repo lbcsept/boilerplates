@@ -28,8 +28,20 @@ def off():
     logging.info(f"{client_ip} is switching brain OFF: {res}")
     return jsonify(res)
 
+@app.route('/authorize', methods=['POST'])
+def authorize():
+    client_ip = request.remote_addr
+    payload = request.get_json()
+    return jsonify({"status": "success", 
+          "message": f"authorize payload was: {payload}"})
 
 
+@app.route('/status', methods=['GET'])
+@app.route('/health', methods=['GET'])
+def status():
+    client_ip = request.remote_addr
+    return jsonify({"status": "success", 
+          "message": f"I am fine (status not yet implemented)"})
 
 
 
