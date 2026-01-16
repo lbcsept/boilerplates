@@ -38,7 +38,7 @@ def handle_alexa_request():
     logging.info("Received from Alexa:", data)
 
     # Extract intent and slots
-    intent = data.get('request', {}).get('intsent', {}).get('name')
+    intent = data.get('request', {}).get('intent', {}).get('name')
     onoff = data.get('request', {}).get('intent', {}).get('slots', {}).get('onoff', {}).get('value')
     action = "allumer"
     if onoff == 'on':
