@@ -34,8 +34,11 @@ def off():
 
 @app.route('/alexa-endpoint', methods=['POST'])
 def handle_alexa_request():
+    """ curl -X POST https://brain.h2d2cloud.org/alexa-endpoint 
+    -d '{"request": {"intent": {"name": "coco", "slots": {"onoff" : {"value": "on"}}}  } }' 
+    -H "Content-Type: application/json"""
     data = request.get_json()
-    logging.info("Received from Alexa:", data)
+    logging.info(f"Received from Alexa:'{data}'")
 
     # Extract intent and slots
     intent = data.get('request', {}).get('intent', {}).get('name')
