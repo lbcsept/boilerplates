@@ -38,7 +38,8 @@ def handle_alexa_request():
     -d '{"request": {"intent": {"name": "coco", "slots": {"onoff" : {"value": "on"}}}  } }' 
     -H "Content-Type: application/json"""
     data = request.get_json()
-    logging.info(f"Received from Alexa:'{data}'")
+    client_ip = request.remote_addr
+    logging.info(f"Received from Alexa ({client_ip}):'{data}'")
 
     # Extract intent and slots
     intent = data.get('request', {}).get('intent', {}).get('name')
