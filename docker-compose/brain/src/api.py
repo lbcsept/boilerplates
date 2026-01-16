@@ -34,7 +34,7 @@ def off():
 
 @app.route('/alexa-endpoint', methods=['POST'])
 def handle_alexa_request():
-    data = request.json
+    data = request.get_json()
     logging.info("Received from Alexa:", data)
 
     # Extract intent and slots
@@ -44,7 +44,7 @@ def handle_alexa_request():
     if onoff == 'on':
         res = switch_on()
     else:
-        action = "éteindre"
+        action = "eteindre"
         res = switch_off()
 
     mess = f"brain va s'{action}"   
