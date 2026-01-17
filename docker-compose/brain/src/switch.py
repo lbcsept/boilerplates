@@ -15,13 +15,13 @@ def on():
         result = subprocess.run(cmd, capture_output=True, text=True)
         if result.returncode == 0:
             return {"status": "success",
-                               "message": "Command succeeded, brain will wake up"}
+                    "message": "Command succeeded, brain will wake up"}
         else:
             return {"status": "error",
-                               "message": f"Command failed with error: {result.stderr}"}
+                    "message": f"Command failed with error: {result.stderr}"}
     except Exception as e:
         return {"status": "error",
-                           "message": f"An unexpected error occurred: {str(e)}"}
+                "message": f"An unexpected error occurred: {str(e)}"}
 
 
 
@@ -44,14 +44,14 @@ def off():
 
         if error:
             return {"status": "error", 
-                               "message": f"Command failed with error: {error}"}
+                    "message": f"Command failed with error: {error}"}
         else:
             return {"status": "success", 
-                               "message": f"Command succeeded, brain will sleep, {output}"}
+                    "message": f"Command succeeded, brain will sleep, {output}"}
 
     except Exception as e:
         return {"status": "error", 
-                           "message": f"An unexpected error occurred: {str(e)}"}
+                "message": f"An unexpected error occurred: {str(e)}"}
     finally:
         ssh.close()
 

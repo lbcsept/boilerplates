@@ -102,5 +102,37 @@ def get_logs():
     except FileNotFoundError:
         return jsonify({'error': 'Log file not found'}), 404
 
+@app.route('/alexaworld', methods=['POST'])
+def alexa_webhook():
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+
+    # Handle Alexa request
+    if data.get('request', {}).get('type') == 'LaunchRequest':
+        response = {
+            'version': '1.0',
+            'response': {
+                'outputSpeech': {
+                    'type': 'PlainText',
+                    'text': 'Hello, World!'
+                }
+            }
+        }
+    else:
+        response = {
+            'version': '1.0',
+            'response': {
+                'outputSpeech': {
+                    'type': 'PlainText',
+                    'text': 'Sorry, I didn\'t understand that.'
+                }
+            }
+        }
+
+    return jsonify(response)
+
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
