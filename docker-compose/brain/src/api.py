@@ -105,6 +105,7 @@ def get_logs():
 @app.route('/alexaworld', methods=['POST'])
 def alexa_webhook():
     data = request.get_json()
+    logging.info(f"in alexaworld: '{data}'")
     if not data:
         return jsonify({'error': 'No data provided'}), 400
 
