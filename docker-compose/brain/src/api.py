@@ -40,7 +40,7 @@ def status():
     client_ip = request.remote_addr
     logging.debug(f"Client IP: {client_ip}")
     res = brain_state()
-    logging.info(f"{client_ip} ask for brain state: {res}")
+    logging.debug(f"{client_ip} ask for brain state: {res}")
     return jsonify(res)
 
 @app.route('/logs', methods=['GET'])
