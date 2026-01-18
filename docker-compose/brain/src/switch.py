@@ -10,8 +10,29 @@ load_dotenv(override=True)
 hostname = os.getenv("BRAIN_HOST")
 username = os.getenv("BRAIN_USER")
 password = os.getenv("BRAIN_PSW")    
-# @app.command(short_help="Turn brain on")
+
+
+import socket
+import struct
+
+def send_magic_packet(mac_address):
+    # Convert MAC address to bytes
+    mac_bytes = bytes.fromhex(mac_address.replace(':', ''))
+
+    # Create magic packet
+    magic_packet = b'\xff' * 6 + mac_bytes * 16
+
+    # Send magic packet
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+        s.sendto(magic_packet, ('<broadcast>', 9))
+
 def on():
+    send_magic_packet(os.getenv('BRAIN_MAC'))
+
+
+# @app.command(short_help="Turn brain on")
+def on_old():
     try:
         #cmd = ["wakeonlan",
         #  "-i", os.getenv('BRAIN_HOST'), os.getenv('BRAIN_MAC')]
