@@ -32,7 +32,7 @@ import struct
 
 
 # @app.command(short_help="Turn brain on")
-def on_old():
+def on():
     try:
         #cmd = ["wakeonlan",
         #  "-i", os.getenv('BRAIN_HOST'), os.getenv('BRAIN_MAC')]
