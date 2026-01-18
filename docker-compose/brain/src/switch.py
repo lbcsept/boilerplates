@@ -15,20 +15,20 @@ password = os.getenv("BRAIN_PSW")
 import socket
 import struct
 
-def send_magic_packet(mac_address):
-    # Convert MAC address to bytes
-    mac_bytes = bytes.fromhex(mac_address.replace(':', ''))
+# def send_magic_packet(mac_address):
+#     # Convert MAC address to bytes
+#     mac_bytes = bytes.fromhex(mac_address.replace(':', ''))
 
-    # Create magic packet
-    magic_packet = b'\xff' * 6 + mac_bytes * 16
+#     # Create magic packet
+#     magic_packet = b'\xff' * 6 + mac_bytes * 16
 
-    # Send magic packet
-    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        s.sendto(magic_packet, ('<broadcast>', 9))
+#     # Send magic packet
+#     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+#         s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+#         s.sendto(magic_packet, ('<broadcast>', 9))
 
-def on():
-    send_magic_packet(os.getenv('BRAIN_MAC'))
+# def on():
+#     send_magic_packet(os.getenv('BRAIN_MAC'))
 
 
 # @app.command(short_help="Turn brain on")
