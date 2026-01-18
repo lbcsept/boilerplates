@@ -14,5 +14,5 @@ services:
       - BRAIN_USER=${BRAIN_USER}
       - BRAIN_PSW=${BRAIN_PSW}
       - PYTHONPATH=/app/
-    network_mode: host
+    network_mode: host # needed for wol
     restart: unless-stopped
