@@ -7,7 +7,9 @@ import paramiko
 # app = typer.Typer()
 
 load_dotenv(override=True)
-    
+hostname = os.getenv("BRAIN_HOST")
+username = os.getenv("BRAIN_USER")
+password = os.getenv("BRAIN_PSW")    
 # @app.command(short_help="Turn brain on")
 def on():
     try:
@@ -23,14 +25,22 @@ def on():
         return {"status": "error",
                 "message": f"An unexpected error occurred: {str(e)}"}
 
-
+# @app.command(short_help="return brain state")
+def state():
+    try:
+        subprocess.run(["ping", "-c", "1", hostname],
+                        capture_output=True, text=True, check=True)
+        return {"status": "success", "state": "on", "message": "Brain is ON"}
+    except subprocess.CalledProcessError:
+        return {"status": "success", "state": "off", "message": "Brain is OFF"}
+    except Exception as e:
+        return {"status": "error", "state": "off", 
+                "message": f"An unexpected error occurred: {str(e)}"}
 
 # @app.command(short_help="Turn brain off")
 def off():
     try:
-        hostname = os.getenv("BRAIN_HOST")
-        username = os.getenv("BRAIN_USER")
-        password = os.getenv("BRAIN_PSW")
+
         port = 22
 
         ssh = paramiko.SSHClient()
