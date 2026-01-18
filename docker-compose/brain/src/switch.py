@@ -13,7 +13,9 @@ password = os.getenv("BRAIN_PSW")
 # @app.command(short_help="Turn brain on")
 def on():
     try:
-        cmd = ["wakeonlan", "-i", os.getenv('BRAIN_HOST'), os.getenv('BRAIN_MAC')]
+        #cmd = ["wakeonlan",
+        #  "-i", os.getenv('BRAIN_HOST'), os.getenv('BRAIN_MAC')]
+        cmd = ["wakeonlan",  os.getenv('BRAIN_MAC')]
         result = subprocess.run(cmd, capture_output=True, text=True)
         if result.returncode == 0:
             return {"status": "success",
